@@ -68,7 +68,7 @@ def index(request):
 # embeds video in page/finds & displays chords
 def play(request):
     # get video's unique id & construct embed link
-    embed_url = 'https://www.youtube.com/embed/' + request.POST.get('view')
+    embed_url = 'https://www.youtube.com/embed/' + request.POST.get('view') + "&enablejsapi=1&origin=https%3A%2F%2triceratops.pythonanywhere.com&widgetid=1"
 
     context = {
         'embed' : embed_url
