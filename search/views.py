@@ -8,7 +8,9 @@ from django.http import HttpResponse
 
 def index(request):
     videos = []
-
+    
+    
+    
     if request.method == 'POST':
         search_url = 'https://www.googleapis.com/youtube/v3/search'
         video_url = 'https://www.googleapis.com/youtube/v3/videos'
@@ -68,7 +70,7 @@ def index(request):
 # embeds video in page/finds & displays chords
 def play(request):
     # get video's unique id & construct embed link
-    embed_url = 'https://www.youtube.com/embed/' + request.POST.get('view') + "&enablejsapi=1&origin=https%3A%2F%2Ftriceratops.pythonanywhere.com&widgetid=1"
+    embed_url = 'https://www.youtube.com/embed/' + request.POST.get('view')
 
     context = {
         'embed' : embed_url
