@@ -122,6 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/home/triceratops/riffable/static'
 YOUTUBE_DATA_API_KEY = 'AIzaSyAd_BjiczHDa0kzQvu8lltBcBdeUl6u1V4'
-#ALLOWED_HOSTS=['*']
+ALLOWED_HOSTS=['triceratops.pythonanywhere.com']
 #CORS_ORIGIN_ALLOW_ALL = True
