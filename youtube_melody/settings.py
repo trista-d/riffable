@@ -43,7 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     #'django_samesite_none.middleware.SameSiteNoneMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    #'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -123,5 +123,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 YOUTUBE_DATA_API_KEY = 'AIzaSyAd_BjiczHDa0kzQvu8lltBcBdeUl6u1V4'
-ALLOWED_HOSTS=['*']
-CORS_ORIGIN_ALLOW_ALL = True
+#ALLOWED_HOSTS=['*']
+#CORS_ORIGIN_ALLOW_ALL = True
