@@ -25,7 +25,7 @@ SECRET_KEY = '!y!bim(02c(bus&3n5!&f9l69f(@x&b5&5#x0zj_(z@a78yrte'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS=['triceratops.pythonanywhere.com', 'localhost']
 
 # Application definition
 
@@ -122,8 +122,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/home/triceratops/riffable/static'
 YOUTUBE_DATA_API_KEY = 'AIzaSyAd_BjiczHDa0kzQvu8lltBcBdeUl6u1V4'
-#ALLOWED_HOSTS=['triceratops.pythonanywhere.com']
-ALLOWED_HOSTS=['localhost']
 
 CSRF_COOKIE_SAMESITE = 'None'
 SESSION_COOKIE_SAMESITE = 'None'
