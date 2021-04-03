@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,7 +40,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "django_samesite_none.middleware.SameSiteNoneMiddleware",
+   # "django_samesite_none.middleware.SameSiteNoneMiddleware",
+    #'django_cookies_samesite.middleware.CookiesSameSite',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -122,4 +122,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = '/home/triceratops/riffable/static'
 YOUTUBE_DATA_API_KEY = 'AIzaSyAd_BjiczHDa0kzQvu8lltBcBdeUl6u1V4'
-ALLOWED_HOSTS=['triceratops.pythonanywhere.com']
+#ALLOWED_HOSTS=['triceratops.pythonanywhere.com']
+ALLOWED_HOSTS=['localhost']
+
+CSRF_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
