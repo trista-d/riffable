@@ -34,7 +34,7 @@
   <section class="jumbotron text-center">
     <div class="container">
       <h1 class="jumbotron-heading">Riffable</h1>
-      <p class="lead text-muted">Get the top nine results on YouTube for your query!</p>
+      <p class="lead text-muted">Need help learning guitar by ear? Search for a song on YouTube and view its chords!</p>
       <form method="POST">
       <div class="input-group mb-3">
           {% csrf_token %}
@@ -42,7 +42,6 @@
       </div>
       <p>
         <button type="submit" name="submit" value="search" class="btn btn-primary my-2">YouTube Search</button>
-        <button type="submit" name="submit" value="lucky" class="btn btn-secondary my-2">I'm Feeling Lucky</button>
       </p>
       </form>
     </div>

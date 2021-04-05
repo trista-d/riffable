@@ -10,6 +10,13 @@ import librosa
 import pafy
 import re
 import os
+import subprocess
+
+import numpy as np
+
+#uncomment to visually see mel spectrogram
+import librosa.display
+import matplotlib.pyplot as plt
 
 from isodate import parse_duration
 from django.conf import settings
@@ -39,7 +46,8 @@ def index(request):
                 'maxResults' : 48,
                 'type' : 'video',
                 'videoEmbeddable' : 'true',
-                'videoSyndicated' : 'true'
+                'videoSyndicated' : 'true',
+                'videoDuration' : 'medium'
             }
             
             # send request to API using above parameters
@@ -49,9 +57,6 @@ def index(request):
             # save each video's unique id
             for result in results:
                 video_ids.append(result['id']['videoId'])
-
-            if request.POST['submit'] == 'lucky':
-                return redirect(f'https://www.youtube.com/watch?v={ video_ids[0] }')
             
             # YouTube API request parameters to get video specifics
             # more info here: https://developers.google.com/youtube/v3/docs/videos/list
@@ -109,8 +114,9 @@ def play(request):
         vid_id = request.POST.get('view')
         embed_url = f'https://www.youtube.com/embed/{ vid_id }?origin=https://triceratops.pythonanywhere.com'
         
-        # get the song's audio using pafy as a part of the youtube-dl package 
+        # get the song's audio using pafy as a part of the youtube-dl package
         # (code is a modified version of: https://github.com/csteinmetz1/youtube-audio-dl/blob/master/youtube-audio-dl.py)
+        # https://librosa.org/doc/main/ioformats.html
         audio = pafy.new(f'https://www.youtube.com/watch?v={ vid_id }')
         audio_stream = audio.getbestaudio(preftype="m4a", ftypestrict=True)
         filename = re.sub("[^a-zA-Z0-9_ ]", "", audio.title)
@@ -118,20 +124,58 @@ def play(request):
         filepath = os.path.join(filename + ".m4a")
         audio_output = audio_stream.download(filepath=filepath)
         
-        #format it so librosa can analyze it
-        stream = librosa.stream(filename + '.m4a', block_length=256, frame_length=4096, hop_length=4096)
+        filepath = filename + '.m4a'
+        
+        #frame_length = (2048 * sr)
+        #hop_length = (512 * sr)
+        
+        hop_length = 512
+        
+        #load the actual audio into librosa
+        y, sr = librosa.load(filepath)
+        
+        # create a mel spectrogram
+        # more info: https://medium.com/analytics-vidhya/understanding-the-mel-spectrogram-fca2afa2ce53
+        # https://towardsdatascience.com/getting-to-know-the-mel-spectrogram-31bca3e2d9d0
+        filter_banks = librosa.filters.mel(n_fft=2048, sr=22050, n_mels=90)
+        #filter_banks.shape
+        
+        mel_spectrogram = librosa.feature.melspectrogram(y, sr=sr, n_fft=2048, hop_length=hop_length, n_mels=90)
+        mel_spectrogram.shape
+        log_mel_spectrogram = librosa.power_to_db(mel_spectrogram)
+        
+        """
+        uncomment to visually see mel spectrogram
+        """
+        
+        plt.figure(figsize=(25, 10))
+        librosa.display.specshow(log_mel_spectrogram, x_axis='time', y_axis='mel', sr=sr)
+        plt.colorbar(format='%+2.f')
+        plt.show()
+        
+        """
+        To get chords:
+            1. analyze spectrogram for consonant note ratios (3:2, 5:4 etc.)
+            2. Based on the frequencies (Hz) of these notes, assign them proper names (C, A, G# etc.)
+            3. Use a library (Mingus is a possible option? Or pychord) to take these groups of notes as input
+               then output a matching chord name
+               https://softwarerecs.stackexchange.com/questions/69576/python-library-to-detect-chords-from-notes
+            4. use a library or API to get images of chord charts to display on a scrolling sidebar in play.html
+            5. This might take a while so show the user a loading screen while chords are being generated
+               and use play.html only for embedding the video and displaying the chords?
+            6. but how would alternate guitar tunings work?
+        """
         
         # remove audio after analyzing it
-        os.remove(filename + '.m4a') 
+        os.remove(filepath) 
         
         # variables to use in play.html
         context = {
             'embed' : embed_url # embed link for iframe
         }
-    
-    # if the view button hasn't been pressed (page was reloaded) do nothing
+        
+    # if view button hasn't been pressed (page was reloaded so video is already there) do nothing
     else:
         context = {} 
-    
     # stay on play.html & change HTML based on context  
     return render(request, 'search/play.html', context)
