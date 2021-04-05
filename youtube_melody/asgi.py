@@ -1,5 +1,5 @@
 """
-ASGI config for youtube_melody project.
+ASGI config for riffable project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 

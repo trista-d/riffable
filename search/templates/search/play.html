@@ -13,7 +13,12 @@
   </head>
   <body>
     <main role="main">
-      <iframe type="text/html" width="75%" height="800px" frameborder="0" src="{{ embed }}"></iframe>
+      <div class="mx-auto">
+        <iframe style="display: {{ display }}" type="text/html" width="75%" height="800px" frameborder="0" src="{{ embed }}"></iframe>
+      </div>
+      <p>{{ message }}</p>
+      
+      <a class="btn btn-secondary my-2"  href="{% url 'index' %}">Home</button>
     </main>
   </body>
     
