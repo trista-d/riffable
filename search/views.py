@@ -15,8 +15,8 @@ import subprocess
 import numpy as np
 
 #uncomment to visually see mel spectrogram
-import librosa.display
-import matplotlib.pyplot as plt
+# import librosa.display
+# import matplotlib.pyplot as plt
 
 from isodate import parse_duration
 from django.conf import settings
@@ -144,14 +144,13 @@ def play(request):
         mel_spectrogram.shape
         log_mel_spectrogram = librosa.power_to_db(mel_spectrogram)
         
+        # uncomment to visually see mel spectrogram
         """
-        uncomment to visually see mel spectrogram
-        """
-        
         plt.figure(figsize=(25, 10))
         librosa.display.specshow(log_mel_spectrogram, x_axis='time', y_axis='mel', sr=sr)
         plt.colorbar(format='%+2.f')
         plt.show()
+        """
         
         """
         To get chords:
