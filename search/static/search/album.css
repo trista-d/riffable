@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pattaya&display=swap');
+
 .jumbotron {
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -15,8 +17,9 @@
   margin-bottom: 0;
 }
 
-.jumbotron-heading {
-  font-weight: 300;
+#title {
+  font-family: 'Pattaya', sans-serif;
+  font-size: 5vw;
 }
 
 .jumbotron .container {
@@ -30,4 +33,19 @@ footer {
 
 footer p {
   margin-bottom: .25rem;
+}
+
+#container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+iframe {
+  display: block;
+}
+
+#home {
+  margin-top: 3%;
 }

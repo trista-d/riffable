@@ -163,6 +163,7 @@ def play(request):
             5. This might take a while so show the user a loading screen while chords are being generated
                and use play.html only for embedding the video and displaying the chords?
             6. but how would alternate guitar tunings work?
+            7. add metronome
         """
         
         # remove audio after analyzing it

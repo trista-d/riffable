@@ -6,25 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="referrer" content="origin-when-cross-origin">
     <title>Riffable Home</title>
-    <!-- Bootstrap core CSS -->
+    <!-- Bootstrap -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-    <!-- Custom styles for this template -->
+    
     <link href="{% static 'search/album.css' %}" rel="stylesheet">
   </head>
   <body>
@@ -33,7 +17,7 @@
 
   <section class="jumbotron text-center">
     <div class="container">
-      <h1 class="jumbotron-heading">Riffable</h1>
+      <h1 id="title">Riffable</h1>
       <p class="lead text-muted">Need help learning guitar by ear? Search for a song on YouTube and view its chords!</p>
       <form method="POST">
       <div class="input-group mb-3">
@@ -41,7 +25,7 @@
           <input type="text" name="search" class="form-control" aria-label="Username">
       </div>
       <p>
-        <button type="submit" name="submit" value="search" class="btn btn-primary my-2">YouTube Search</button>
+        <button type="submit" name="submit" value="search" class="btn btn-danger my-2">YouTube Search</button>
       </p>
       </form>
     </div>
