@@ -1,0 +1,18 @@
+# I followed this Flask tutorial, on Windows 10
+https://code.visualstudio.com/docs/python/tutorial-flask
+
+# How to create virtual environment and install flask using powershell
+py -3 -m venv .venv
+
+# fix venv activation error
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+
+.venv\scripts\activate
+python -m pip install --upgrade pip
+python -m pip install flask
+
+# activate environment
+.venv\Scripts\Activate.ps1
+
+# YouTube removing dislikes broke youtube-dl, so use this version if you're getting a ['dislike_count'] KeyError
+pip install git+https://github.com/Cupcakus/pafy
