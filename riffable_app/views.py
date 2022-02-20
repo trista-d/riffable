@@ -4,6 +4,9 @@ import pafy
 import re
 import os
 
+# A wrapper for Chordino from https://github.com/ohollo/chord-extractor
+from chord_extractor.extractors import Chordino
+
 # file that stores your youtube api key
 import config
 
@@ -109,13 +112,27 @@ def play():
         filename = re.sub("[^a-zA-Z0-9_ ]", "", audio.title)
         filename = re.sub("[ ]", "_", filename)
         filepath = os.path.join(filename + ".m4a")
-        audio_output = audio_stream.download(filepath=filepath)
-        
+        try :
+            audio_output = audio_stream.download(filepath=filepath)
+        except:
+            return render_template('index.html') 
         filepath = filename + '.m4a'
 
+        # use to Chordino to get chords
+        chordino = Chordino(roll_on=1)  
+        chords = chordino.extract(filepath)
+        print(chords)
+
         # remove audio after analyzing it
-        #os.remove(filepath) 
-        
+        os.remove(filepath)
+
+        # display chords
+        notes = []
+        for note in chords :
+            if note[0] != "N" and note[0] not in notes :
+                print(note[0])
+                notes.append(note[0])
+
         # variables to use in play.html
         context = {
             'embed' : embed_url, # embed link for iframe

@@ -16,3 +16,9 @@ python -m pip install flask
 
 # YouTube removing dislikes broke youtube-dl, so use this version if you're getting a ['dislike_count'] KeyError
 pip install git+https://github.com/Cupcakus/pafy
+
+# fix youtube-dl 403 errors
+youtube-dl --rm-cache-dir
+
+# if you are not using Linux 64-bit, set vamp environment variable
+$env:VAMP_PATH='PATH_TO_nnls-chroma.so' # in _lib folder
