@@ -13,13 +13,20 @@
   <body>
     <div id="container">
       <div id="video" class="text-center">
-        <iframe style="display: {{ display }}" type="text/html" width="1200px" height="800px" frameborder="0" src="{{ embed }}"></iframe>
+        <iframe style="display: {{ display }}" type="text/html" width="800px" height="400px" frameborder="0" src="{{ embed }}"></iframe>
       </div>
       <p>{{ message }}</p>
+    </div>
+    <div class="text-center mt-4">
+      {% for note in fingerings %}
+        <div class="chord">
+          <label for="{{ fingerings[note] }}">{{ fingerings[note].split('_')[0] }}</label>
+          <img id="{{ fingerings[note] }}" class='img-fluid chart' src="static/images/{{ fingerings[note] }}.png" alt="">
+        </div>
+      {% endfor %}
     </div>
     <div class="text-center" id="home">
       <a class="btn btn-success my-2"  href="{{ url_for('index')}}">Home</a>
     </div>
   </body>
-    
 </html>

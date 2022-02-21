@@ -7,6 +7,9 @@ import os
 # A wrapper for Chordino from https://github.com/ohollo/chord-extractor
 from chord_extractor.extractors import Chordino
 
+# way to generate chord charts from https://smus.com/generating-guitar-chord-diagrams/
+from chords import CHORDS, filenames, export_chords
+
 # file that stores your youtube api key
 import config
 
@@ -103,7 +106,7 @@ def play():
        
         # get video's unique id & construct embed link
         vid_id = request.form['view']
-        embed_url = f'https://www.youtube.com/embed/{ vid_id }?origin=http://127.0.0.1:5000/' # ?origin=https://triceratops.pythonanywhere.com
+        embed_url = f'https://www.youtube.com/embed/{ vid_id }?origin=http://127.0.0.1:5000/' # ?origin=YOUR_HOSTED_URL -> this prevents CORS errors
         
         # get the song's audio using pafy as a part of the youtube-dl package
         # (code is a modified version of: https://github.com/csteinmetz1/youtube-audio-dl/blob/master/youtube-audio-dl.py)
@@ -119,31 +122,36 @@ def play():
         filepath = filename + '.m4a'
 
         # use to Chordino to get chords
-        chordino = Chordino(roll_on=1)  
-        chords = chordino.extract(filepath)
-        print(chords)
+        # Info on parameters: http://www.isophonics.net/nnls-chroma
+        chordino = Chordino()
+        chord = chordino.extract(filepath)
 
         # remove audio after analyzing it
         os.remove(filepath)
 
-        # display chords
+        # prevent future 403 error
+        os.system("youtube-dl --rm-cache-dir")
+
+        # remove repeated chords and non-chords
         notes = []
-        for note in chords :
+        for note in chord :
             if note[0] != "N" and note[0] not in notes :
-                print(note[0])
                 notes.append(note[0])
+        
+        # get chord fingerings
+        fingerings = {}
+        for note in notes :
+            if note in CHORDS :
+                fingerings[note] = CHORDS[note]
+        
+        export_chords('static/images/', fingerings)
 
         # variables to use in play.html
         context = {
             'embed' : embed_url, # embed link for iframe
-            'display': 'block'
+            'display': 'block',
+            "fingerings": filenames
         }
-        
-    # if view button hasn't been pressed (page was reloaded so video is already there) do nothing
-    else:
-        context = {
-            "display": "block",
-            "embed":''
-        }
-    # stay on play.html & change HTML based on context  
-    return render_template("play.html", display=context["display"], embed=context["embed"])
+
+        # stay on play.html & change HTML based on context  
+        return render_template("play.html", display=context["display"], embed=context["embed"], fingerings=context['fingerings'])
