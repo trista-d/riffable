@@ -50,7 +50,7 @@ class Chordino(ChordExtractor):
                  tuning_mode: TuningMode = TuningMode.GLOBAL,
                  spectral_whitening: float = 1,
                  spectral_shape=0.7,
-                 boost_n_likelihood: float = 0.1,
+                 boost_n_likelihood: float = 0.8,
                  **kwargs):
         super().__init__()
         self._params = {

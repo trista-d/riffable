@@ -145,7 +145,7 @@ EQUIVALENCES = [('Ab', 'G#'), ('Bb', 'A#'), ('C#', 'Db'), ('F#', 'Gb'), ('Eb', '
 ACCIDENTALS_MAP = dict(EQUIVALENCES)
 ACCIDENTALS_MAP.update(dict([(v,k) for k,v in EQUIVALENCES]))
 CHORD_TEMPLATE_NAME = 'chords.ly'
-LILYPOND_BIN = 'LilyPond\\usr\\bin\\lilypond'
+LILYPOND_BIN = 'LilyPond/usr/bin/'
 LILYPOND_PARAMS = '--png -dbackend=eps'
 LILYPOND_GARBAGE = ['-systems.count', '-1.eps', '-systems.tex', '-systems.texi', '.eps']
 
@@ -171,7 +171,7 @@ def create_lilypond(chord_markup, lilypond_path):
 def create_png(lilypond_path, png_path):
     # call the png creator on the lilypond path
     os.system('%(lilypond)s %(params)s -o %(output)s %(input)s' % {
-        'lilypond': LILYPOND_BIN,
+        'lilypond': LILYPOND_BIN + 'lilypond',
         'params': LILYPOND_PARAMS,
         'output': png_path,
         'input': lilypond_path,

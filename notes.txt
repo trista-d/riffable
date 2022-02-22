@@ -20,5 +20,7 @@ pip install git+https://github.com/Cupcakus/pafy
 # fix youtube-dl 403 errors
 youtube-dl --rm-cache-dir
 
-# if you are not using Linux 64-bit, set vamp environment variable
-$env:VAMP_PATH='PATH_TO_nnls-chroma.so' # in _lib folder
+# if you are not using Linux 64-bit, you may need to set vamp environment variable
+$env:VAMP_PATH='PATH TO nnls-chroma binary' # in _lib folder
+
+# also set LILYPOND_PATH variable
