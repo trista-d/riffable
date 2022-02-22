@@ -106,7 +106,7 @@ def play():
        
         # get video's unique id & construct embed link
         vid_id = request.form['view']
-        embed_url = f'https://www.youtube.com/embed/{ vid_id }?origin=?triceratops.pythonanywhere.com'
+        embed_url = f'https://www.youtube.com/embed/{ vid_id }?origin=https://riffable.herokuapp.com/'
         
         # get the song's audio using pafy as a part of the youtube-dl package
         # (code is a modified version of: https://github.com/csteinmetz1/youtube-audio-dl/blob/master/youtube-audio-dl.py)
