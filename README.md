@@ -1,4 +1,6 @@
 # Riffable
+![Riffable Homepage](riffable_cover.png)
+
 My first time using Python and Docker; a website to search for a song on YouTube and see its guitar chords
 
 - written with HTML, CSS, and Flask for Python
