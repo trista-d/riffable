@@ -24,7 +24,6 @@ def index():
 
 @app.route("/search", methods=["POST"])
 def search():
-    #print(request.form['search'])
     videos = [] # set to empty so nothing happens if API request not sent
     
     # if search bar has been used
